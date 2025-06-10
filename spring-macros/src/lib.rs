@@ -161,16 +161,17 @@ pub fn nest(args: TokenStream, input: TokenStream) -> TokenStream {
 /// - `middleware1`, `middleware2`, etc. - Middleware expressions that will be applied to all routes in the module
 ///
 /// # Example
-/// ```
-/// # use spring_web::{axum::middleware, Router};
-/// # use tower_http::timeout::TimeoutLayer;
-/// # use std::time::Duration;
+/// ```rust
+/// use spring_web::{axum::middleware, Router， middlewares};
+/// use tower_http::timeout::TimeoutLayer;
+/// use std::time::Duration;
+/// 
 /// #[middlewares(
 ///     middleware::from_fn(my_middleware),
 ///     TimeoutLayer::new(Duration::from_secs(10))
 /// )]
 /// mod api {
-///     # use spring_web::{get, axum::response::IntoResponse};
+///     use spring_web::{get, axum::response::IntoResponse};
 ///     #[get("/hello")]
 ///     async fn hello() -> impl IntoResponse {
 ///         "Hello, world!"
