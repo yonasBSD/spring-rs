@@ -162,10 +162,10 @@ pub fn nest(args: TokenStream, input: TokenStream) -> TokenStream {
 ///
 /// # Example
 /// ```rust
-/// use spring_web::{axum::middleware, Router， middlewares};
+/// use spring_web::{axum::{middleware，response::Response}, Router, middlewares};
 /// use tower_http::timeout::TimeoutLayer;
 /// use std::time::Duration;
-/// 
+///
 /// #[middlewares(
 ///     middleware::from_fn(my_middleware),
 ///     TimeoutLayer::new(Duration::from_secs(10))
@@ -176,6 +176,13 @@ pub fn nest(args: TokenStream, input: TokenStream) -> TokenStream {
 ///     async fn hello() -> impl IntoResponse {
 ///         "Hello, world!"
 ///     }
+/// }
+///
+/// async fn my_middleware(
+///     request: Request,
+///     next: Next,
+/// ) -> Response {
+///     unimplemented!("do something")
 /// }
 /// ```
 ///
@@ -301,15 +308,15 @@ pub fn derive_service(input: TokenStream) -> TokenStream {
 /// # Example
 /// ```rust
 /// use spring_macros::cache;
-/// 
+///
 /// #[derive(serde::Serialize, serde::Deserialize)]
 /// struct User {
 ///     id: u64,
 ///     name: String,
 /// }
-/// 
+///
 /// struct MyError;
-/// 
+///
 /// #[cache("user:{user_id}", expire = 600)]
 /// async fn get_user(user_id: u64) -> Result<User, MyError> {
 ///     // Fetch user from database
